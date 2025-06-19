@@ -1,0 +1,26 @@
+#include <LiquidCrystal.h>
+
+// LCD RS, E, D4, D5, D6, D7 pin assignments
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+const int tempPin = A0;
+
+void setup() {
+  lcd.begin(16, 2);
+  Serial.begin(9600);
+}
+
+void loop() {
+  int sensorValue = analogRead(tempPin);
+  float voltage = sensorValue * 5.0 / 1023.0;
+  float tempC = voltage * 100;
+
+  lcd.setCursor(0, 0);
+  lcd.print("Temp: ");
+  lcd.print(tempC);
+  lcd.print(" C");
+
+  Serial.print("Temp: ");
+  Serial.println(tempC);
+
+  delay(1000);
+}
